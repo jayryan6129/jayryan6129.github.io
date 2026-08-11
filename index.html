@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Northframe Technologies — Android apps, games, privacy information, and developer support.">
+    <title>Northframe Technologies</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #090b12;
+            --surface: #121725;
+            --surface-2: #181f31;
+            --text: #f4f7ff;
+            --muted: #aab3c7;
+            --accent: #72e5ff;
+            --accent-2: #b777ff;
+            --border: rgba(255,255,255,.10);
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 0%, rgba(114,229,255,.14), transparent 34rem),
+                radial-gradient(circle at 90% 10%, rgba(183,119,255,.13), transparent 32rem),
+                var(--bg);
+            line-height: 1.6;
+        }
+
+        a { color: inherit; }
+
+        .wrap {
+            width: min(1100px, calc(100% - 36px));
+            margin: 0 auto;
+        }
+
+        header {
+            min-height: 74vh;
+            display: flex;
+            align-items: center;
+            padding: 88px 0 64px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--muted);
+            background: rgba(255,255,255,.03);
+            font-size: .9rem;
+        }
+
+        h1 {
+            margin: 20px 0 16px;
+            max-width: 850px;
+            font-size: clamp(3rem, 8vw, 6.8rem);
+            line-height: .98;
+            letter-spacing: -.05em;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .lead {
+            max-width: 690px;
+            margin: 0 0 32px;
+            color: var(--muted);
+            font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0 18px;
+            text-decoration: none;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-weight: 700;
+        }
+
+        .primary {
+            color: #071016;
+            background: linear-gradient(90deg, var(--accent), #a8efff);
+            border-color: transparent;
+        }
+
+        .secondary { background: rgba(255,255,255,.035); }
+
+        section { padding: 48px 0; }
+
+        .section-title {
+            margin: 0 0 24px;
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+            letter-spacing: -.03em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+        }
+
+        .card h3 { margin: 0 0 8px; font-size: 1.3rem; }
+        .card p { margin: 0 0 18px; color: var(--muted); }
+        .card a { color: var(--accent); font-weight: 700; text-decoration: none; }
+
+        .meta {
+            color: var(--muted);
+            font-size: .94rem;
+        }
+
+        footer {
+            margin-top: 36px;
+            padding: 34px 0 46px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        footer strong { color: var(--text); }
+
+        @media (max-width: 600px) {
+            header { min-height: auto; padding-top: 64px; }
+            .wrap { width: min(100% - 24px, 1100px); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <div class="eyebrow">Northframe Technologies · Android Developer</div>
+            <h1>Apps built with <span class="gradient">clarity, reliability, and play.</span></h1>
+            <p class="lead">
+                Northframe Technologies develops Android applications and games with a focus on polished user experience, practical functionality, and responsible monetization.
+            </p>
+            <div class="actions">
+                <a class="button primary" href="#apps">View Apps</a>
+                <a class="button secondary" href="mailto:northframetechnologies@gmail.com">Contact Support</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section id="apps">
+            <h2 class="section-title">Apps & Games</h2>
+            <div class="grid">
+                <article class="card">
+                    <h3>Tap Rush</h3>
+                    <p>
+                        A fast-paced Android reflex game featuring 100 levels, decoys, combos, lives, achievements-in-progress, and carefully limited rewarded and interstitial advertising.
+                    </p>
+                    <a href="https://jayryan6129.github.io/northframe-legal/tap-rush/privacy/">Tap Rush Privacy Policy →</a>
+                </article>
+
+                <article class="card">
+                    <h3>More from Northframe</h3>
+                    <p>
+                        Additional Android utilities, games, and data-focused applications will be added here as they are released.
+                    </p>
+                    <span class="meta">Coming soon</span>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Developer & Privacy</h2>
+            <div class="grid">
+                <article class="card">
+                    <h3>Developer</h3>
+                    <p>
+                        Northframe Technologies is the developer identity used for published Android applications and related support resources.
+                    </p>
+                    <a href="mailto:northframetechnologies@gmail.com">northframetechnologies@gmail.com</a>
+                </article>
+
+                <article class="card">
+                    <h3>Privacy</h3>
+                    <p>
+                        Privacy information is maintained per application and updated when features, SDKs, or data practices change.
+                    </p>
+                    <a href="https://jayryan6129.github.io/northframe-legal/tap-rush/privacy/">View Tap Rush Privacy Policy →</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <strong>Northframe Technologies</strong><br>
+            © 2026 Northframe Technologies. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
