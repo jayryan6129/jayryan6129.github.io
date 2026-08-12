@@ -3,218 +3,794 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Northframe Technologies — Android apps, games, privacy information, and developer support.">
-    <title>Northframe Technologies</title>
+    <meta name="description" content="Northframe Technologies develops polished Android applications and games with a focus on quality, privacy, and responsible monetization.">
+    <meta name="theme-color" content="#0a0f1c">
+    <meta property="og:title" content="Northframe Technologies">
+    <meta property="og:description" content="Android applications and games built with precision, quality, and care.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jayryan6129.github.io/">
+    <title>Northframe Technologies | Android Apps & Games</title>
+
     <style>
         :root {
-            color-scheme: dark;
-            --bg: #090b12;
-            --surface: #121725;
-            --surface-2: #181f31;
-            --text: #f4f7ff;
-            --muted: #aab3c7;
-            --accent: #72e5ff;
-            --accent-2: #b777ff;
-            --border: rgba(255,255,255,.10);
+            --bg: #07101f;
+            --bg-deep: #050a13;
+            --surface: rgba(17, 27, 48, 0.76);
+            --surface-solid: #101a2d;
+            --surface-soft: #0d1728;
+            --text: #f6f8fc;
+            --muted: #9eabc1;
+            --muted-strong: #c4ccda;
+            --line: rgba(255, 255, 255, 0.09);
+            --line-strong: rgba(255, 255, 255, 0.15);
+            --primary: #69dcff;
+            --primary-strong: #99e9ff;
+            --secondary: #9275ff;
+            --success: #7fe2b5;
+            --shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --max-width: 1160px;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             margin: 0;
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            min-height: 100vh;
             color: var(--text);
             background:
-                radial-gradient(circle at 15% 0%, rgba(114,229,255,.14), transparent 34rem),
-                radial-gradient(circle at 90% 10%, rgba(183,119,255,.13), transparent 32rem),
-                var(--bg);
+                radial-gradient(circle at 13% -5%, rgba(105, 220, 255, 0.15), transparent 30rem),
+                radial-gradient(circle at 93% 5%, rgba(146, 117, 255, 0.13), transparent 34rem),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 72%, #040810 100%);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
-        a { color: inherit; }
+        a {
+            color: inherit;
+        }
 
-        .wrap {
-            width: min(1100px, calc(100% - 36px));
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :focus-visible {
+            outline: 3px solid rgba(105, 220, 255, 0.8);
+            outline-offset: 4px;
+            border-radius: 8px;
+        }
+
+        .skip-link {
+            position: fixed;
+            left: 16px;
+            top: -70px;
+            z-index: 999;
+            padding: 11px 16px;
+            background: #ffffff;
+            color: #06101c;
+            border-radius: 10px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        .container {
+            width: min(var(--max-width), calc(100% - 40px));
             margin: 0 auto;
         }
 
-        header {
-            min-height: 74vh;
-            display: flex;
-            align-items: center;
-            padding: 88px 0 64px;
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(5, 10, 19, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
         }
 
-        .eyebrow {
+        .nav {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 7px 12px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line-strong);
+            border-radius: 13px;
+            background:
+                linear-gradient(145deg, rgba(105, 220, 255, 0.18), rgba(146, 117, 255, 0.16)),
+                var(--surface-soft);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+        }
+
+        .brand-name {
+            font-size: 0.97rem;
+            font-weight: 800;
+            letter-spacing: -0.015em;
+        }
+
+        .brand-subtitle {
+            margin-top: 4px;
             color: var(--muted);
-            background: rgba(255,255,255,.03);
-            font-size: .9rem;
+            font-size: 0.74rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        .nav-links a {
+            color: var(--muted-strong);
+            font-size: 0.92rem;
+            font-weight: 650;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .hero {
+            padding: 104px 0 88px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.22fr) minmax(300px, 0.78fr);
+            align-items: center;
+            gap: 68px;
+        }
+
+        .kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.025);
+            color: var(--muted-strong);
+            font-size: 0.86rem;
+            font-weight: 700;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 18px rgba(127, 226, 181, 0.72);
         }
 
         h1 {
-            margin: 20px 0 16px;
-            max-width: 850px;
-            font-size: clamp(3rem, 8vw, 6.8rem);
-            line-height: .98;
-            letter-spacing: -.05em;
+            max-width: 790px;
+            margin: 22px 0 20px;
+            font-size: clamp(3.25rem, 7.3vw, 6.6rem);
+            line-height: 0.98;
+            letter-spacing: -0.058em;
         }
 
-        .gradient {
-            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        .accent-text {
+            background: linear-gradient(98deg, var(--primary), #b8efff 45%, #a694ff 92%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .lead {
-            max-width: 690px;
-            margin: 0 0 32px;
-            color: var(--muted);
-            font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+        .hero-copy {
+            max-width: 720px;
+            margin: 0;
+            color: var(--muted-strong);
+            font-size: clamp(1.04rem, 1.8vw, 1.24rem);
         }
 
-        .actions {
+        .hero-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
+            margin-top: 34px;
         }
 
-        .button {
+        .btn {
+            min-height: 50px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 48px;
-            padding: 0 18px;
+            gap: 9px;
+            padding: 0 19px;
+            border: 1px solid var(--line-strong);
+            border-radius: 13px;
+            font-weight: 800;
             text-decoration: none;
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            border-color: transparent;
+            color: #06111c;
+            background: linear-gradient(100deg, var(--primary), var(--primary-strong));
+            box-shadow: 0 14px 32px rgba(105, 220, 255, 0.14);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.035);
+            color: var(--text);
+        }
+
+        .hero-panel {
+            position: relative;
+            padding: 28px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background:
+                linear-gradient(155deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018)),
+                var(--surface);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .hero-panel::after {
+            content: "";
+            position: absolute;
+            right: -80px;
+            bottom: -100px;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            background: rgba(105, 220, 255, 0.07);
+            filter: blur(10px);
+        }
+
+        .panel-label {
+            color: var(--muted);
+            font-size: 0.77rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .panel-title {
+            margin: 12px 0 8px;
+            font-size: 1.65rem;
+            letter-spacing: -0.035em;
+        }
+
+        .panel-text {
+            margin: 0;
+            color: var(--muted-strong);
+            font-size: 0.96rem;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .metric {
+            padding: 15px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            background: rgba(3, 8, 16, 0.34);
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 1.13rem;
+        }
+
+        .metric span {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+
+        section {
+            padding: 78px 0;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 32px;
+            margin-bottom: 30px;
+        }
+
+        .section-kicker {
+            margin: 0 0 8px;
+            color: var(--primary);
+            font-size: 0.77rem;
+            font-weight: 850;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3.05rem);
+            letter-spacing: -0.045em;
+            line-height: 1.06;
+        }
+
+        .section-description {
+            max-width: 520px;
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .product-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(270px, 0.85fr);
+            gap: 34px;
+            padding: 34px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background:
+                linear-gradient(145deg, rgba(105, 220, 255, 0.05), transparent 44%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+        }
+
+        .product-badge {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            color: var(--muted-strong);
+            font-size: 0.8rem;
+            font-weight: 750;
+        }
+
+        .product-title {
+            margin: 12px 0 8px;
+            font-size: 2.25rem;
+            letter-spacing: -0.045em;
+        }
+
+        .product-description {
+            max-width: 650px;
+            margin: 0;
+            color: var(--muted-strong);
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin: 23px 0 0;
+        }
+
+        .chip {
+            padding: 7px 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.028);
+            color: var(--muted-strong);
+            font-size: 0.78rem;
             font-weight: 700;
         }
 
-        .primary {
-            color: #071016;
-            background: linear-gradient(90deg, var(--accent), #a8efff);
-            border-color: transparent;
+        .product-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
         }
 
-        .secondary { background: rgba(255,255,255,.035); }
-
-        section { padding: 48px 0; }
-
-        .section-title {
-            margin: 0 0 24px;
-            font-size: clamp(1.8rem, 4vw, 2.7rem);
-            letter-spacing: -.03em;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        .product-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             gap: 18px;
+            padding: 15px 17px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.025);
+            text-decoration: none;
+            transition: border-color 0.18s ease, background 0.18s ease;
         }
 
-        .card {
-            padding: 24px;
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+        .product-link:hover {
+            border-color: rgba(105, 220, 255, 0.35);
+            background: rgba(105, 220, 255, 0.04);
         }
 
-        .card h3 { margin: 0 0 8px; font-size: 1.3rem; }
-        .card p { margin: 0 0 18px; color: var(--muted); }
-        .card a { color: var(--accent); font-weight: 700; text-decoration: none; }
+        .product-link span:first-child {
+            font-weight: 750;
+        }
 
-        .meta {
+        .arrow {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .principle {
+            min-height: 230px;
+            padding: 25px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+        }
+
+        .principle-number {
+            color: var(--primary);
+            font-size: 0.76rem;
+            font-weight: 850;
+            letter-spacing: 0.11em;
+        }
+
+        .principle h3 {
+            margin: 38px 0 9px;
+            font-size: 1.28rem;
+            letter-spacing: -0.025em;
+        }
+
+        .principle p {
+            margin: 0;
             color: var(--muted);
-            font-size: .94rem;
+            font-size: 0.94rem;
         }
 
-        footer {
-            margin-top: 36px;
-            padding: 34px 0 46px;
-            border-top: 1px solid var(--border);
+        .support-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: linear-gradient(120deg, rgba(146, 117, 255, 0.07), rgba(105, 220, 255, 0.045));
+        }
+
+        .support-card h3 {
+            margin: 0 0 7px;
+            font-size: 1.45rem;
+            letter-spacing: -0.03em;
+        }
+
+        .support-card p {
+            margin: 0;
             color: var(--muted);
         }
 
-        footer strong { color: var(--text); }
+        .site-footer {
+            margin-top: 18px;
+            border-top: 1px solid var(--line);
+            padding: 34px 0 44px;
+        }
 
-        @media (max-width: 600px) {
-            header { min-height: auto; padding-top: 64px; }
-            .wrap { width: min(100% - 24px, 1100px); }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 28px;
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        .footer-brand {
+            color: var(--muted-strong);
+            font-weight: 800;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid,
+            .product-card {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 82px;
+            }
+
+            .hero-panel {
+                max-width: 620px;
+            }
+
+            .principles {
+                grid-template-columns: 1fr;
+            }
+
+            .principle {
+                min-height: auto;
+            }
+
+            .principle h3 {
+                margin-top: 24px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                width: min(var(--max-width), calc(100% - 24px));
+            }
+
+            .nav {
+                min-height: 68px;
+            }
+
+            .brand-subtitle,
+            .nav-links a:not(:last-child) {
+                display: none;
+            }
+
+            .nav-links {
+                gap: 0;
+            }
+
+            .hero {
+                padding: 70px 0 60px;
+            }
+
+            h1 {
+                font-size: clamp(3rem, 14vw, 4.7rem);
+            }
+
+            section {
+                padding: 58px 0;
+            }
+
+            .section-head,
+            .support-card,
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .product-card {
+                padding: 24px;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                transition: none !important;
+                animation: none !important;
+            }
         }
     </style>
 </head>
+
 <body>
-    <header>
-        <div class="wrap">
-            <div class="eyebrow">Northframe Technologies · Android Developer</div>
-            <h1>Apps built with <span class="gradient">clarity, reliability, and play.</span></h1>
-            <p class="lead">
-                Northframe Technologies develops Android applications and games with a focus on polished user experience, practical functionality, and responsible monetization.
-            </p>
-            <div class="actions">
-                <a class="button primary" href="#apps">View Apps</a>
-                <a class="button secondary" href="mailto:northframetechnologies@gmail.com">Contact Support</a>
-            </div>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+        <div class="container nav">
+            <a class="brand" href="#top" aria-label="Northframe Technologies home">
+                <span class="brand-mark" aria-hidden="true">N</span>
+                <span class="brand-copy">
+                    <span class="brand-name">Northframe Technologies</span>
+                    <span class="brand-subtitle">Android Apps & Games</span>
+                </span>
+            </a>
+
+            <nav class="nav-links" aria-label="Primary navigation">
+                <a href="#products">Products</a>
+                <a href="#principles">Principles</a>
+                <a href="#support">Support</a>
+            </nav>
         </div>
     </header>
 
-    <main class="wrap">
-        <section id="apps">
-            <h2 class="section-title">Apps & Games</h2>
-            <div class="grid">
-                <article class="card">
-                    <h3>Tap Rush</h3>
-                    <p>
-                        A fast-paced Android reflex game featuring 100 levels, decoys, combos, lives, achievements-in-progress, and carefully limited rewarded and interstitial advertising.
+    <main id="main">
+        <section class="hero" id="top">
+            <div class="container hero-grid">
+                <div>
+                    <div class="kicker"><span class="status-dot" aria-hidden="true"></span> Independent Android developer</div>
+                    <h1>Software built with <span class="accent-text">precision.</span></h1>
+                    <p class="hero-copy">
+                        Northframe Technologies creates focused Android applications and games designed around reliability, thoughtful user experience, privacy-conscious engineering, and responsible monetization.
                     </p>
-                    <a href="https://jayryan6129.github.io/northframe-legal/tap-rush/privacy/">Tap Rush Privacy Policy →</a>
-                </article>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#products">Explore products</a>
+                        <a class="btn btn-secondary" href="mailto:northframetechnologies@gmail.com">Contact support</a>
+                    </div>
+                </div>
 
-                <article class="card">
-                    <h3>More from Northframe</h3>
-                    <p>
-                        Additional Android utilities, games, and data-focused applications will be added here as they are released.
+                <aside class="hero-panel" aria-label="Northframe focus">
+                    <div class="panel-label">Northframe Focus</div>
+                    <h2 class="panel-title">Quality before complexity.</h2>
+                    <p class="panel-text">
+                        Products are designed to remain understandable, performant, and maintainable as they evolve.
                     </p>
-                    <span class="meta">Coming soon</span>
+                    <div class="metrics">
+                        <div class="metric">
+                            <strong>Android</strong>
+                            <span>Primary platform</span>
+                        </div>
+                        <div class="metric">
+                            <strong>Privacy</strong>
+                            <span>Clear disclosures</span>
+                        </div>
+                        <div class="metric">
+                            <strong>UX</strong>
+                            <span>Focused interfaces</span>
+                        </div>
+                        <div class="metric">
+                            <strong>Support</strong>
+                            <span>Direct contact</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="products">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <p class="section-kicker">Products</p>
+                        <h2>Apps designed to earn their place on your device.</h2>
+                    </div>
+                    <p class="section-description">
+                        Northframe products are built with a deliberate scope: useful or enjoyable first, polished second, monetized responsibly.
+                    </p>
+                </div>
+
+                <article class="product-card">
+                    <div>
+                        <div class="product-badge">ANDROID GAME · TAP RUSH</div>
+                        <h3 class="product-title">Tap Rush</h3>
+                        <p class="product-description">
+                            A fast-paced reflex game built around precise timing, target recognition, progressive difficulty, combos, lives, and a 100-level challenge. Advertising is deliberately limited to optional rewarded ads and controlled Game Over interstitials.
+                        </p>
+                        <div class="chips" aria-label="Tap Rush features">
+                            <span class="chip">100 levels</span>
+                            <span class="chip">Reflex gameplay</span>
+                            <span class="chip">Rewarded revive</span>
+                            <span class="chip">Offline core gameplay</span>
+                            <span class="chip">Android 8+</span>
+                        </div>
+                    </div>
+
+                    <div class="product-links">
+                        <a class="product-link" href="https://jayryan6129.github.io/northframe-legal/tap-rush/privacy/">
+                            <span>Privacy Policy</span>
+                            <span class="arrow" aria-hidden="true">↗</span>
+                        </a>
+                        <a class="product-link" href="mailto:northframetechnologies@gmail.com?subject=Tap%20Rush%20Support">
+                            <span>Tap Rush Support</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </a>
+                    </div>
                 </article>
             </div>
         </section>
 
-        <section>
-            <h2 class="section-title">Developer & Privacy</h2>
-            <div class="grid">
-                <article class="card">
-                    <h3>Developer</h3>
-                    <p>
-                        Northframe Technologies is the developer identity used for published Android applications and related support resources.
-                    </p>
-                    <a href="mailto:northframetechnologies@gmail.com">northframetechnologies@gmail.com</a>
-                </article>
+        <section id="principles">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <p class="section-kicker">Engineering Principles</p>
+                        <h2>A simple standard for every Northframe release.</h2>
+                    </div>
+                </div>
 
-                <article class="card">
-                    <h3>Privacy</h3>
-                    <p>
-                        Privacy information is maintained per application and updated when features, SDKs, or data practices change.
-                    </p>
-                    <a href="https://jayryan6129.github.io/northframe-legal/tap-rush/privacy/">View Tap Rush Privacy Policy →</a>
-                </article>
+                <div class="principles">
+                    <article class="principle">
+                        <span class="principle-number">01 · QUALITY</span>
+                        <h3>Ship polished, not crowded.</h3>
+                        <p>
+                            Features should improve the product rather than simply increase its size. Performance, clarity, stability, and usability remain core release criteria.
+                        </p>
+                    </article>
+
+                    <article class="principle">
+                        <span class="principle-number">02 · PRIVACY</span>
+                        <h3>Be clear about data practices.</h3>
+                        <p>
+                            Privacy information is maintained per application and updated when SDKs, data practices, or product functionality change.
+                        </p>
+                    </article>
+
+                    <article class="principle">
+                        <span class="principle-number">03 · MONETIZATION</span>
+                        <h3>Respect the user's attention.</h3>
+                        <p>
+                            Advertising should fit natural product moments. Northframe avoids unnecessary interruptions and favors user-initiated rewarded experiences where appropriate.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="support">
+            <div class="container">
+                <div class="support-card">
+                    <div>
+                        <h3>Need help with a Northframe app?</h3>
+                        <p>For support, privacy questions, or general developer inquiries, contact Northframe Technologies directly.</p>
+                    </div>
+                    <a class="btn btn-secondary" href="mailto:northframetechnologies@gmail.com">northframetechnologies@gmail.com</a>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="wrap">
-            <strong>Northframe Technologies</strong><br>
-            © 2026 Northframe Technologies. All rights reserved.
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                <span class="footer-brand">Northframe Technologies</span><br>
+                © 2026 Northframe Technologies. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="https://jayryan6129.github.io/northframe-legal/tap-rush/privacy/">Tap Rush Privacy</a>
+                <a href="mailto:northframetechnologies@gmail.com">Support</a>
+            </div>
         </div>
     </footer>
 </body>
