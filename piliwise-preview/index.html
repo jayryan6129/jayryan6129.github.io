@@ -35,7 +35,7 @@ button,input,select{font:inherit}button,a,select{touch-action:manipulation}butto
 /* v1.3 — dual seller choices; differentiated research links and Mall status */
 .seller-picker{margin:26px 0 18px;background:#fff9f3;border:1px solid #f1d8c6;padding:clamp(16px,2.5vw,27px);border-radius:20px;scroll-margin-top:155px}.seller-picker-head{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:18px}.seller-picker-head h2{font-size:clamp(1.35rem,3vw,1.8rem);margin:5px 0 5px}.seller-picker-head p{margin:0;color:#556459;max-width:660px;font-size:.94rem}.offers-counter{white-space:nowrap;background:#eef3ed;padding:8px 11px;border-radius:20px;font-size:.78rem;font-weight:800;color:#315748}.seller-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.seller-tile{background:#fff;border:1px solid #e5d7c9;border-radius:17px;padding:18px;display:flex;flex-direction:column;gap:11px;min-width:0}.seller-tile-pending{background:#fffdfa;border-style:dashed}.seller-role{font-size:.79rem;color:#794a31;font-weight:800}.seller-tile h3{margin:0;font-size:1.24rem;overflow-wrap:anywhere}.seller-tile p{margin:0;color:#4e6157;font-size:.9rem;line-height:1.55}.mall-mark{width:max-content;max-width:100%;display:inline-flex;background:#fff1e1;border:1px solid #f2c69e;color:#97522c;border-radius:7px;padding:6px 9px;font-size:.74rem;font-weight:790}.status-pending{display:inline-flex;align-self:start;background:#f2eee9;color:#645a4f;padding:6px 9px;border-radius:7px;font-weight:750;font-size:.78rem}.seller-metrics{display:flex;gap:10px;flex-wrap:wrap}.seller-metrics>span{display:flex;flex-direction:column;min-width:105px;background:#f8f8f3;border-radius:10px;padding:8px 10px;color:#647369;font-size:.76rem}.seller-metrics b{color:#355c49;font-size:1.08rem}.seller-metrics small{color:#69746d}.seller-tile .seller-listing-title{font-size:.8rem;color:#5e625e;overflow-wrap:anywhere}.seller-tile .seller-price{color:#5b675c}.seller-tile .seller-warning{background:#fff7ed;border-radius:9px;padding:9px;color:#73563f;font-size:.78rem}.seller-cta{display:flex;justify-content:center;align-items:center;text-align:center;margin-top:auto;min-height:48px;padding:10px 13px;border-radius:11px;background:var(--orange);color:white!important;font-weight:800;text-decoration:none!important}.seller-cta:hover{filter:brightness(.91)}.seller-cta-secondary{background:#305c4d}.seller-tile small{font-size:.73rem;color:#68746c}.seller-picker-footnote{font-size:.79rem;color:#667169;line-height:1.5;margin:13px 0 0}.seller-tile-pending small{margin-top:0}
 @media(max-width:700px){.seller-picker-head{flex-direction:column}.seller-grid{grid-template-columns:1fr}.seller-tile{padding:17px}.seller-picker{padding:15px;border-radius:15px}.seller-tile h3{font-size:1.18rem}.offers-counter{white-space:normal}}
-.rank-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}.rank-button{font:inherit;font-weight:800;border:1px solid #d4bea9;background:#fff;border-radius:999px;color:#334f42;min-height:44px;padding:10px 17px;cursor:pointer}.rank-button[aria-pressed="true"]{background:#f36a47;color:white;border-color:#f36a47}.rank-button:focus-visible{outline:3px solid #315c4d;outline-offset:2px}.seller-picker>.seller-cta{max-width:390px;margin-top:15px}.seller-picker>small{display:block;margin-top:8px}
+.rank-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}.rank-button{font:inherit;font-weight:800;border:1px solid #d4bea9;background:#fff;border-radius:999px;color:#334f42;min-height:44px;padding:10px 17px;cursor:pointer}.rank-button[aria-pressed="true"]{background:#f36a47;color:white;border-color:#f36a47}.rank-button:focus-visible{outline:3px solid #315c4d;outline-offset:2px}.seller-picker-head{flex-wrap:wrap}.seller-picker-head>.rank-controls{flex-basis:100%;margin:0}.seller-picker>.seller-cta{max-width:390px;margin-top:15px}.seller-picker>small{display:block;margin-top:8px}
 </style>
 </head>
 <body>
@@ -121,18 +121,19 @@ function categoryLink(category){return `#/category/${category}`}
 function breadcrumbs(items){return `<nav aria-label="Breadcrumb" class="breadcrumbs"><a href="#/">Home</a>${items.map(i=>`<span aria-hidden="true">/</span>${i.url?`<a href="${i.url}">${htmlEscape(i.text)}</a>`:`<span aria-current="page">${htmlEscape(i.text)}</span>`}`).join('')}</nav>`}
 function categoryTiles(){return `<div class="cats-grid">${Object.entries(categories).map(([key,c])=>`<a class="cat-card" href="${categoryLink(key)}"><span class="cat-symbol" aria-hidden="true">${c.icon}</span><span><b>${c.title}</b><small>${c.description}</small></span></a>`).join('')}</div>`}
 function getEligible(p){
- // v1.3 policy: BOTH independently vetted offers are mandatory for a public two-store item.
- // A visible research link does not count as a commission-approved purchase link.
- const os=p.sellerOptions||[];
- return os.length===2&&os[0]&&os[1]&&os[0].sellerName!==os[1].sellerName&&os[0].url!==os[1].url&&os.every((o,i)=>{
-  if(!o||!o.approved||!o.affLink)return false;
+ // Commercial launch requires at least two separately approved stores,
+ // one independently verified Shopee Mall store, and approval on the individual offers.
+ const eligible=(p.sellerOptions||[]).filter(o=>{
+  if(!o||!o.approved||!o.affLink||!reviewVerified(o))return false;
+  if(o.affiliateApproved!==true||o.stockChecked!==true||o.fraudFlagsPresent!==false||o.imagesRightsChecked!==true)return false;
   try{const u=new URL(o.affLink);if(u.protocol!=='https:'||!['shopee.ph','www.shopee.ph','s.shopee.ph','shope.ee'].includes(u.hostname.toLowerCase()))return false;}catch{return false}
-  return o.authenticityChecked===true&&o.variantChecked===true&&o.stockChecked===true&&o.fraudFlagsPresent===false&&Number.isFinite(o.productRating)&&o.productRating>=4.5&&o.productRating<=5&&Number.isFinite(o.shopRating)&&o.shopRating>=4.5&&o.shopRating<=5&&Number.isInteger(o.reviewCount)&&o.reviewCount>=30&&o.matchStatus==='same_sku_verified'&&o.affiliateApproved===true&&o.recentReviewsChecked===true&&o.imagesRightsChecked===true&&o.verifiedAt&&Date.now()-Date.parse(o.verifiedAt)<=30*86400000&&Date.now()>=Date.parse(o.verifiedAt);
- })&&os.some(o=>o.mallBadgeObserved===true&&o.mallStatus==='mall_verified_live');
+  return true;
+ });
+ return eligible.length>=2&&new Set(eligible.map(o=>o.sellerName)).size>=2
+  &&eligible.some(o=>o.mallBadgeObserved===true&&o.mallStatus==='mall_verified_live');
 }
-
 function reviewVerified(o){
- return Boolean(o && o.productRating>=4.5 && o.shopRating>=4.5 &&
+ return Boolean(o && o.productRating>=4.5 && o.productRating<=5 && o.shopRating>=4.5 && o.shopRating<=5 &&
   Number.isInteger(o.reviewCount) && o.reviewCount>=30 &&
   o.variantChecked===true && o.recentReviewsChecked===true &&
   o.matchStatus==='same_sku_verified' && o.authenticityChecked===true &&
